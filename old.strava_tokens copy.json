@@ -1,0 +1,29 @@
+{
+    "token_type": "Bearer",
+    "expires_at": 1705976128,
+    "expires_in": 21295,
+    "refresh_token": "d89734e1287d7d6578d38107e3d2e66c042c7afd",
+    "access_token": "8fc47caf7abfd803a78477af277718a38f01b2a6",
+    "athlete": {
+        "id": 26116938,
+        "username": "mestre05053",
+        "resource_state": 2,
+        "firstname": "Alejandro",
+        "lastname": "Mestre Argudin",
+        "bio": "Quien soy veamos: Un gran nerd que practica MTB para encontrar el punto medio que equilibre entre el apasionante mundo de la informática,  con el resto de la vida. Un eterno enamorado del universo manga-anime. Un estoico por naturaleza, en proceso de constante mejora guiado por la virtud. \n!Que la única cadena que te ate sea la de tu bici!",
+        "city": "Managua",
+        "state": "Managua",
+        "country": "Nicaragua",
+        "sex": "M",
+        "premium": false,
+        "summit": false,
+        "created_at": "2017-11-07T06:50:07Z",
+        "updated_at": "2023-11-05T11:20:29Z",
+        "badge_type_id": 0,
+        "weight": 70.0,
+        "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/26116938/26664239/2/medium.jpg",
+        "profile": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/26116938/26664239/2/large.jpg",
+        "friend": null,
+        "follower": null
+    }
+}
