@@ -1,5 +1,6 @@
 import requests
 import webbrowser
+import json
 from strava_django.entities.auth import Auth
 
 import os
@@ -21,24 +22,32 @@ class RequestHandler(BaseHTTPRequestHandler):
         global code
         self.close_connection = True
         query = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
-        if not query['state'] or query['state'][0] != state:
-            raise RuntimeError("state argument missing or invalid")
+        '''if not query['state'] or query['state'][0] != state:
+            raise RuntimeError("state argument missing or invalid")'''
         code = query['code']
+        print(code)
 
 def test():
+    base_url = 'http://www.strava.com/oauth/authorize'
+    params = {
+            "client_id": auth.client_id,
+            "response_type": "code",
+            "redirect_uri" :    "http://localhost/exchange_token",
+            "approval_prompt": "force",
+            "scope" : "profile:read_all,activity:read_all",
+            "state" : state
+        }
+
+    #response = requests.get(base_url, params=params)
+    #print(response.url)
+
     oauth_url = auth.sacar_afuera()
     response = requests.get(oauth_url)
     print(response.status_code)
-    #webbrowser.open_new_tab(oauth_url)
-    
-    server = HTTPServer(('127.0.0.1', 8081), RequestHandler)
-    server.handle_request()
+    webbrowser.open_new_tab(oauth_url)
 
-    ###TO DO 
-    '''
-    La logica es que el servidor que levanto sea a al que se le envie la redireccion se strava
-    luego de la url de la redireccion de strava carga el code.
-    '''
+    server = HTTPServer(('localhost', 8081), RequestHandler)
+    server.handle_request()
 
 def get_user_data():
 

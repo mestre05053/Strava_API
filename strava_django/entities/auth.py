@@ -40,13 +40,13 @@ class Auth:
 
     def __init__(self):
         self.__data = None
-        self.__client_id = cfg_item('client_id')
+        self.client_id = cfg_item('client_id')
         self.__client_secret = cfg_item('client_secret')
         self.__url_app_verificacion = cfg_item('url_app_verificacion')
     
     def sacar_afuera(self):
         return self.__url_app_verificacion
-        
+    
     def get_token(self):
         if not os.path.isfile(Auth.__auth_file):
             self.__generate_token()
