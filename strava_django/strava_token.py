@@ -10,16 +10,16 @@ response = requests.post(
                     data = {
                             'client_id': '120308',
                             'client_secret': '45f626c9f96b35ff47ad8226e90aee444b46845d',
-                            'code': '811c3da0cbb2a0a93642bd311d452e8af1c694ec',
+                            'code': '03317229f465ac47c049d3b8880d358c17ee9b88',
                             'grant_type': 'authorization_code'
                             }
                 )
 
 #Save json response as a variable
 strava_tokens = response.json()
-print(strava_tokens)
+print(strava_tokens['access_token'])
 
-# Save tokens to file
+'''# Save tokens to file
 with open('strava_tokens.json', 'w',encoding='utf-8') as outfile:
     json.dump(strava_tokens, outfile, indent = 4,ensure_ascii=False)
 
@@ -49,4 +49,4 @@ if strava_tokens['expires_at'] > time.time():
                     )# Save response as json in new variable
     new_strava_tokens = response.json()
     with open('new_strava_tokens.json', 'w',encoding='utf-8') as outfile:
-        json.dump(new_strava_tokens, outfile, indent = 4,ensure_ascii=False)
+        json.dump(new_strava_tokens, outfile, indent = 4,ensure_ascii=False)'''

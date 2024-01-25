@@ -1,0 +1,21 @@
+Para que el script corra es necesario acceder a los logs de apache por esta razon se debe de 
+anadir al usuario que corre el script con una ACL a la lista de usuarios que pueden leer los logs de apache
+
+
+Another solution is to use default ACL on /var/log/apache2, this works without modifying the logrotate configuration:
+
+# set default acl recursive (-R) and default (-d) (will be inherited by new files) acl for user and group id 1001 on /var/log/apache2
+setfacl -Rdm u:1001:r /var/log/apache2
+setfacl -Rdm g:1001:r /var/log/apache2
+ 
+# make directory readable by user and group id 1001
+setfacl -m u:1001:rx /var/log/apache2
+setfacl -m g:1001:rx /var/log/apache2
+ 
+# make all existent active logs readable by user and group id 1001
+setfacl -m u:1001:r /var/log/apache2/*.log
+setfacl -m g:1001:r /var/log/apache2/*.log
+
+# make all existent archived logs readable by user and group id 1001
+setfacl -m u:1001:r /var/log/apache2/*.log*
+setfacl -m g:1001:r /var/log/apache2/*.log*

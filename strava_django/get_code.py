@@ -1,6 +1,8 @@
 import requests
 import webbrowser
-import os
+import time
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 def get_code():
     
@@ -11,26 +13,23 @@ def get_code():
     code_reponse = requests.get(code_url)
     print(code_reponse.history)
     print(code_reponse.url)
-    #new_url = requests.get(response.headers['Location'])
-    #new_url = requests.get(response.headers)
-    if code_reponse.history:
-        print("Request was redirected")
-        for resp in response.history:
-            print(resp.status_code, resp.url)
-        print("Final destination:")
-        print(response.status_code, response.url)  
 
-    callback_url = 'http://localhost/exchange_token?state=&code=59cc430d2c4f8774feb8290a8be804077877f09f&scope=read,activity:read_all,profile:read_all'
+    ### TODO
+    #Buscar como hacer patra que se capture una url que tiene un parametro desconocido 
+    #O buscar que se capture una URL aleatori 
+    #callback_url = 'http://localhost/exchange_token?state=&code=59cc430d2c4f8774feb8290a8be804077877f09f&scope=read,activity:read_all,profile:read_all'
+    callback_url = 'http://localhost/'+'exchange_token?state=&code='
     params = {      
                     "state" : "",
                     'exchange_token' : "",
                     'scope' : ""
                     }
-    
-    callback_response = requests.get(callback_url, allow_redirects=False, timeout=200, params=params)
-    print(callback_response.headers.)
-    
-    
+    time.sleep(5)
+    #parsed_url = urlparse(callback_url)
+    #captured_value = parse_qs(parsed_url.query)['code'][0]
+    #print(captured_value)
 
-    print(os.environ.get("code", "No Query String in url"))
+    callback_response = requests.get(callback_url, allow_redirects=False, timeout=200, params=params)
+    print(callback_response.content)
+
 get_code()
