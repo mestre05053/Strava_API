@@ -1,5 +1,4 @@
 import sys
-
 from strava_django.app import run
 
 def main(args=None):
