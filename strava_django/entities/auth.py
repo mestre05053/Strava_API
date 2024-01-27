@@ -42,6 +42,8 @@ class Auth:
             else:
                 now = datetime.datetime.now()
                 if now > datetime.datetime.fromisoformat(self.__data['expires']):
+                    print('Token expirado')
+                    print('Solicitando nuevo Token ....')
                     if self.__data['refresh_token']:
                         self.__refresh_token()
                     else:
@@ -66,7 +68,6 @@ class Auth:
             for entry in fp:
                 list_codes.append(re.findall('(?<=code=)[A-Za-z0-9]{1,}', entry))
             code = list_codes[-1]
-            print('Code:',*code)
 
         self.__exchange_code_for_access_token(code)
 
@@ -81,15 +82,14 @@ class Auth:
                 'client_secret': Auth.__client_secret,
                 'grant_type': 'refresh_token',
                 'refresh_token': self.__data['refresh_token'],
-                }
-
-        url = 'https://www.strava.com/oauth/token',
-
+        }
+        url = 'https://www.strava.com/oauth/token'
+        
         response = requests.post(url, data=data)
 
         if response:
             response_json = response.json()
-            self.__save_token_to_file(response_json["access_token"], '', response_json['expires_in'])
+            self.__save_token_to_file(response_json["access_token"], response_json["refresh_token"], response_json['expires_in'])
             self.__load_token_from_file()
         else:
             raise Exception(f"Could Not Get Token... {response.status_code} = {response.content}")
@@ -109,9 +109,10 @@ class Auth:
         url = 'https://www.strava.com/oauth/token'
 
         response = requests.post(url, data=data)
-        response_json = response.json()
+        
 
         if response:
+            response_json = response.json()
             self.__save_token_to_file(response_json["access_token"], response_json["refresh_token"], response_json['expires_in'])
             self.__load_token_from_file()
         else:
